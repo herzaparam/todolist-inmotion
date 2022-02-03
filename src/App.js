@@ -2,6 +2,7 @@ import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import ProjectCard from './components/ProjectCard';
 import Input from './components/Input';
+import CardList from './components/CardList';
 
 function App() {
   return (
@@ -14,7 +15,9 @@ function App() {
         </div>
 
         <div className="group-project">
-          <h3>Projects <span className='project-counter'>(13)</span></h3>
+          <h3>
+            Projects <span className="project-counter">(13)</span>
+          </h3>
           <div className="grid-card">
             <ProjectCard />
             <ProjectCard />
@@ -36,23 +39,27 @@ function App() {
         <div className="list-group">
           <div className="list-group-title">
             <h4>Today</h4>
-            <p>icon</p>
+            <div>. . .</div>
           </div>
           <hr />
           <div className="card-group">
-            <div className="card">
-              <p>icon</p>
-              <p>card's name</p>
-              <div className="status">hehe</div>
-            </div>
+            <CardList status='approved'/>
+            <CardList status='waiting'/>
+            <CardList status='progress'/>
+            <CardList status='reviewed'/>
           </div>
         </div>
         <div className="list-up-group">
           <div className="list-group-title">
             <h4>Upcoming</h4>
-            <p>icon</p>
+            <div>. . .</div>
           </div>
           <hr />
+          <div className="card-group">
+            <CardList status='approved'/>
+            <CardList status='waiting'/>
+            <CardList status='progress'/>
+          </div>
         </div>
       </section>
     </main>

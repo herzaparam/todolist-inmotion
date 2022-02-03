@@ -1,0 +1,90 @@
+@use 'main';
+
+.card-group {
+  .card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    padding: 5px 0;
+
+    .card-title {
+      flex-grow: 1;
+      font-size: 14px;
+      line-height: 30px;
+      font-weight: 500;
+      color: main.$primary;
+      margin-left: 5px;
+    }
+    .card-right {
+      flex-basis: 25%;
+      text-align: center;
+      .status {
+        border-radius: 12px;
+        height: 100%;
+        p {
+          font-size: 14px;
+          line-height: 30px;
+        }
+      }
+      .approved {
+        color: #8dd8d7;
+        background-color: #e0f5f4;
+      }
+      .progress {
+        color: #aacdf7;
+        background-color: #e0f5f4;
+      }
+      .reviewed {
+        color: #f6c3b2;
+        background-color: #fdeee8;
+      }
+      .waiting {
+        color: #acb4be;
+        background-color: #eceef0;
+      }
+    }
+  }
+}
+.check-input {
+  //   background-color: transparent;
+  flex-basis: 30px;
+  height: 80%;
+  //   border-radius: 50%;
+  //   border: 2px solid #27ae60;
+  //   height: 100%;
+
+  label {
+    position: relative;
+  }
+  label::before {
+    content: '';
+    background: url('../assets/check-circle.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+
+    transform: scale(0) rotateZ(180deg);
+    transition: all 0.4s cubic-bezier(0.54, 0.01, 0, 1.49);
+  }
+
+  input[type='checkbox']:checked + label::before {
+    transform: scale(1) rotateZ(0deg);
+  }
+  input[type='checkbox'] {
+    display: none;
+  }
+  label::after {
+    content: '';
+    border: 2px solid #e4e7eb;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    border-radius: 50%;
+    top: 1px;
+    left: 1px;
+  }
+}
