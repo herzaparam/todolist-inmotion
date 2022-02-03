@@ -1,43 +1,27 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
+import ProjectCard from './components/ProjectCard';
+import Input from './components/Input';
 
 function App() {
   return (
     <main className="main">
       <section className="first">
-        <h2>Hi Samantha</h2>
-        <p>Welcome back to the workspace, we missed you!</p>
-        <input type="text" />
+        <div className="group-first-title">
+          <h2>Hi Samantha</h2>
+          <p>Welcome back to the workspace, we missed you!</p>
+          <Input placeholder="Search Task or Project" />
+        </div>
+
         <div className="group-project">
-          <h3>Projects (13)</h3>
+          <h3>Projects <span className='project-counter'>(13)</span></h3>
           <div className="grid-card">
-            <div className="card">
-              <h4>GH</h4>
-            </div>
-            <div className="card">
-              <h4>GH</h4>
-            </div>
-            <div className="card">
-              <h4>GH</h4>
-            </div>
-            <div className="card">
-              <h4>GH</h4>
-            </div>
-            <div className="card">
-              <h4>GH</h4>
-            </div>
-            <div className="card">
-              <h4>GH</h4>
-            </div>
-            <div className="card">
-              <h4>GH</h4>
-            </div>
-            <div className="card">
-              <h4>GH</h4>
-            </div>
-            <div className="card">
-              <h4>GH</h4>
-            </div>
+            <ProjectCard />
+            <ProjectCard />
+            <ProjectCard />
+            <ProjectCard />
+            <ProjectCard />
+            <ProjectCard />
           </div>
         </div>
       </section>

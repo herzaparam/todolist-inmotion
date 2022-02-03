@@ -15,16 +15,15 @@ $linen: #fdeee8;
 }
 body {
   font-family: $font;
-  background-color: $secondary;
+  background-color: $primary;
   padding: 5px;
 }
 .main {
   display: flex;
   height: 100vh;
   justify-content: center;
-  
+
   // nested .main
-  
 }
 
 // first section
@@ -32,24 +31,49 @@ body {
   width: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 0 6em;
+  justify-content: space-evenly;
+  padding: 0 9em;
 
+  color: white;
+  letter-spacing: .75px;
 }
 .grid-card {
   display: grid;
-  grid-template-columns: 80px 80px 80px;
+  grid-template-columns: 90px 90px 90px;
   gap: 50px 0;
   justify-content: space-between;
-  
-  // nested .grid-card
-  .card {
-    background-color: white;
-    width: 80px;
-    height: 80px;
+}
+.group-first-title {
+  h2 {
+    font-weight: 500;
+    letter-spacing: 1.3px;
+    font-size: 32px;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 16px;
+    color: $secondary;
+    font-weight: 600;
+    letter-spacing: .5px;
   }
 }
 
+.group-project {
+  h3 {
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+  }
+}
+.project-counter {
+  color: $secondary;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+}
 
 // second section
 .second {
@@ -57,7 +81,7 @@ body {
   background-color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   padding: 0 4em;
   border-radius: 24px;
 }
@@ -73,11 +97,10 @@ body {
   flex-direction: column;
   justify-content: center;
 
-  // nested 
+  // nested
   .card {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
   }
 }
-

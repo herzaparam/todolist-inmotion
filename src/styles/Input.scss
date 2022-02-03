@@ -1,0 +1,24 @@
+@use 'main';
+
+.group-input {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  background-color: main.$secondary;
+  border-radius: 18px;
+  padding: 0 10px;
+  margin: 40px 0;
+
+  input {
+    width: 100%;
+    height: 40px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: white;
+    font-size: 14px;
+    line-height: 14px;
+    margin-left: 10px;
+    letter-spacing: 0.75px;
+  }
+}
