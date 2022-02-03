@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { hot } from 'react-hot-loader/root';
 import ProjectCard from './components/ProjectCard';
 import Input from './components/Input';
 import CardList from './components/CardList';
 
 function App() {
+  const [listTask, setListTask] = useState([]);
+  const [listProject, setListProject] = useState([]);
+
+  const fetchProject = () => {
+    fetch('http://demo3821799.mockable.io/get-project')
+      .then((response) => response.json())
+      .then((json) => {
+        setListProject(json.results);
+      });
+  };
+  const fetchTask = (_id) => {
+    fetch('http://demo3821799.mockable.io/get-task')
+      .then((response) => response.json())
+      .then((json) => {
+        setListTask(json.result[_id]);
+      });
+  };
+
+  useEffect(() => {
+    fetchProject();
+    fetchTask(1);
+  }, []);
+
   return (
     <main className="main">
       <section className="first">
@@ -19,11 +42,9 @@ function App() {
             Projects <span className="project-counter">(13)</span>
           </h3>
           <div className="grid-card">
-            <ProjectCard />
-            <ProjectCard />
-            <ProjectCard />
-            <ProjectCard />
-            <ProjectCard />
+            {listProject.slice(0, 5)?.map((item) => {
+              return <ProjectCard item={item.id} />;
+            })}
             <ProjectCard />
           </div>
         </div>
@@ -43,10 +64,17 @@ function App() {
           </div>
           <hr />
           <div className="card-group">
-            <CardList status='approved'/>
-            <CardList status='waiting'/>
-            <CardList status='progress'/>
-            <CardList status='reviewed'/>
+            {listTask.today_task?.map((item) => {
+              return (
+                <CardList
+                  id={item.id}
+                  title={item.title}
+                  checked={item.checked}
+                  status={item.status}
+                  key={item.id}
+                />
+              );
+            })}
           </div>
         </div>
         <div className="list-up-group">
@@ -56,9 +84,17 @@ function App() {
           </div>
           <hr />
           <div className="card-group">
-            <CardList status='approved'/>
-            <CardList status='waiting'/>
-            <CardList status='progress'/>
+            {listTask.upcoming?.map((item) => {
+              return (
+                <CardList
+                  id={item.id}
+                  title={item.title}
+                  checked={item.checked}
+                  status={item.status}
+                  key={item.id}
+                />
+              );
+            })}
           </div>
         </div>
       </section>

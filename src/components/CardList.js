@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/CardList.scss';
 
-function CardList({ status }) {
+function CardList({ id, title, checked, status }) {
   const firstCharacterUppercase = (_status) => {
     return status?.charAt(0).toUpperCase() + status.slice(1);
   };
@@ -10,10 +10,10 @@ function CardList({ status }) {
   return (
     <div className="card">
       <div className="check-input">
-        <input type="checkbox" id="xd" />
-        <label for="xd" />
+        <input type="checkbox" id={id} />
+        <label for={id} />
       </div>
-      <p className="card-title">card's name</p>
+      <p className="card-title">{title}</p>
       <div className="card-right">
         <div className={`status ${status}`}>
           <p>{firstCharacterUppercase(status)}</p>
