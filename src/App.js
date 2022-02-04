@@ -6,9 +6,10 @@ import CardList from './components/CardList';
 
 function App() {
   const [listTask, setListTask] = useState([]);
-  const [listProject, setListProject] = useState(null);
-  console.log('hehe', listProject);
+  const [listProject, setListProject] = useState({});
   const [projectCardActive, setProjectCardActive] = useState(null);
+  console.log('hehe', listProject);
+  // console.log('hehe2', projectCardActive);
 
   const fetchProject = () => {
     fetch('http://demo3821799.mockable.io/get-project')
@@ -45,7 +46,10 @@ function App() {
 
         <div className="group-project">
           <h3>
-            Projects <span className="project-counter">{`(${listProject.total})` ?? '0'}</span>
+            Projects{' '}
+            <span className="project-counter">{`(${
+              listProject.total ?? 0
+            })`}</span>
           </h3>
           <div className="grid-card">
             {listProject.results?.slice(0, 5)?.map((item) => {
@@ -55,61 +59,82 @@ function App() {
                   onClick={() => handleClickProject(item.id)}
                   key={item.id}
                   active={projectCardActive}
+                  name={item.name}
                 />
               );
             })}
-            <ProjectCard active={projectCardActive} />
+            {listProject.results && (
+              <ProjectCard
+                active={projectCardActive}
+                result={listProject.results}
+              />
+            )}
           </div>
         </div>
       </section>
+
+      {/* section 2 is on the right side */}
       <section className="second">
-        <div className="title-group">
-          <h2>Cyber Punk</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam
-            ipsa itaque minus veritatis, laboriosam aliquid.
-          </p>
-        </div>
-        <div className="list-group">
-          <div className="list-group-title">
-            <h4>Today</h4>
-            <div>. . .</div>
+        <button className="add-btn">+</button>
+        {projectCardActive ? (
+          <>
+            <div className="title-group">
+              <h2>
+                {projectCardActive &&
+                  listProject.results[projectCardActive].name}
+              </h2>
+              <p>
+                {projectCardActive &&
+                  listProject.results[projectCardActive].description}
+              </p>
+            </div>
+            <div className="list-group">
+              <div className="list-group-title">
+                <h4>Today</h4>
+                <div>. . .</div>
+              </div>
+              <hr />
+              <div className="card-group">
+                {listTask.today_task?.map((item) => {
+                  return (
+                    <CardList
+                      id={item.id}
+                      title={item.title}
+                      checked={item.checked}
+                      status={item.status}
+                      key={item.id}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+            <div className="list-up-group">
+              <div className="list-group-title">
+                <h4>Upcoming</h4>
+                <div>. . .</div>
+              </div>
+              <hr />
+              <div className="card-group">
+                {listTask.upcoming?.map((item) => {
+                  return (
+                    <CardList
+                      id={item.id}
+                      title={item.title}
+                      checked={item.checked}
+                      status={item.status}
+                      key={item.id}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        ) : (
+          <div>
+            <h1>There are no tasks</h1>
+            <p>Please select any project</p>
           </div>
-          <hr />
-          <div className="card-group">
-            {listTask.today_task?.map((item) => {
-              return (
-                <CardList
-                  id={item.id}
-                  title={item.title}
-                  checked={item.checked}
-                  status={item.status}
-                  key={item.id}
-                />
-              );
-            })}
-          </div>
-        </div>
-        <div className="list-up-group">
-          <div className="list-group-title">
-            <h4>Upcoming</h4>
-            <div>. . .</div>
-          </div>
-          <hr />
-          <div className="card-group">
-            {listTask.upcoming?.map((item) => {
-              return (
-                <CardList
-                  id={item.id}
-                  title={item.title}
-                  checked={item.checked}
-                  status={item.status}
-                  key={item.id}
-                />
-              );
-            })}
-          </div>
-        </div>
+        )}
       </section>
     </main>
   );
