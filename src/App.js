@@ -4,11 +4,13 @@ import ProjectCard from './components/ProjectCard';
 import Input from './components/Input';
 import CardList from './components/CardList';
 
+
 function App() {
   const [listTask, setListTask] = useState([]);
   const [listProject, setListProject] = useState({});
   const [projectCardActive, setProjectCardActive] = useState(null);
-  console.log('hehe', listProject);
+  const [searchTerm, setSearchTerm] = useState('');
+  // console.log('hehe', listProject);
   // console.log('hehe2', projectCardActive);
 
   const fetchProject = () => {
@@ -31,6 +33,18 @@ function App() {
     fetchTask(_id);
   };
 
+  // const countNewResult = (text) => {
+  //   const newArr = listProject.results;
+  //   const newList = newArr.filter((item) => {
+  //     if (searchTerm === '') {
+  //       return item;
+  //     } else if (val.name.toLowerCase().includes(text.toLowerCase())) {
+  //       return item;
+  //     }
+  //   });
+  //   console.log('haha', newList);
+  // };
+
   useEffect(() => {
     fetchProject();
   }, []);
@@ -41,7 +55,10 @@ function App() {
         <div className="group-first-title">
           <h2>Hi Samantha</h2>
           <p>Welcome back to the workspace, we missed you!</p>
-          <Input placeholder="Search Task or Project" />
+          <Input
+            placeholder="Search Task or Project"
+            _handleSearch={setSearchTerm}
+          />
         </div>
 
         <div className="group-project">
@@ -52,18 +69,30 @@ function App() {
             })`}</span>
           </h3>
           <div className="grid-card">
-            {listProject.results?.slice(0, 5)?.map((item) => {
-              return (
-                <ProjectCard
-                  id={item.id}
-                  onClick={() => handleClickProject(item.id)}
-                  key={item.id}
-                  active={projectCardActive}
-                  name={item.name}
-                />
-              );
-            })}
-            {listProject.results && (
+            {listProject.results
+              ?.filter((val) => {
+                if (searchTerm === '') {                  
+                  return val;
+                } else if (
+                  val.name.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {    
+                  return val;
+                }
+              })
+              .slice(0, 5)
+              .map((item, index) => {
+                return (
+                  <ProjectCard
+                    id={item.id}
+                    onClick={() => handleClickProject(item.id)}
+                    key={item.id}
+                    active={projectCardActive}
+                    name={item.name}
+                    index={index}
+                  />
+                );
+              })}
+            {listProject.results && searchTerm === '' && (
               <ProjectCard
                 active={projectCardActive}
                 result={listProject.results}
@@ -81,11 +110,11 @@ function App() {
             <div className="title-group">
               <h2>
                 {projectCardActive &&
-                  listProject.results[projectCardActive].name}
+                  listProject.results[projectCardActive - 1].name}
               </h2>
               <p>
                 {projectCardActive &&
-                  listProject.results[projectCardActive].description}
+                  listProject.results[projectCardActive - 1].description}
               </p>
             </div>
             <div className="list-group">

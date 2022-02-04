@@ -8,7 +8,8 @@ import img5 from '../assets/stacked-waves-haikei.svg';
 
 const listImg = [img1, img2, img3, img4, img5];
 
-function ProjectCard({ id, onClick, active, name, result }) {
+function ProjectCard({ id, onClick, active, name, result, index }) {
+  const _index = index
   const renderFirstchar = (_name) => {
     const splitName = _name.split(' ');
     const newName =
@@ -18,11 +19,11 @@ function ProjectCard({ id, onClick, active, name, result }) {
   };
 
   const countProjectLeft = () => {
+    console.log('hehe', _index);
     const numberOfDisplayedProject = 5;
     const projectLeft = result.length - numberOfDisplayedProject;
     return projectLeft;
   };
-
   if (id) {
     return (
       <div className="container-project-card">
@@ -30,7 +31,7 @@ function ProjectCard({ id, onClick, active, name, result }) {
           <div
             className="content"
             style={{
-              backgroundImage: `url(${listImg[id - 1]})`,
+              backgroundImage: `url(${listImg[index]})`,
               backgroundPosition: 'center',
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
