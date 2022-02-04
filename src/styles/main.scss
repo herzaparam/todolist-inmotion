@@ -8,6 +8,9 @@ $aqua: #38d9d8;
 $peach_puff: #f8ccbc;
 $linen: #fdeee8;
 
+$breakpoint-tablet: 768px;
+$breakpoint-phone: 390px;
+
 * {
   margin: 0;
   padding: 0;
@@ -147,4 +150,109 @@ body {
 
 hr {
   margin: 20px 0;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.block {
+  display: block;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+  height: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.modal-content-title {
+  display: flex;
+  justify-content: space-between;
+
+  h2 {
+    color: $primary;
+  }
+}
+.modal-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  
+  input {
+    width: 80%;
+    height: 30px;
+    outline: none;
+    font-size: 18px;
+    line-height: 30px;
+  }
+  button {
+    width: 75px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    height: 30px;
+    background-color: $purple;
+    color: white;
+    font-weight: 500;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #7b47b3;
+    }
+  }
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+@media (max-width: $breakpoint-tablet) {
+  .first {
+    padding: 3em 2em;
+  }
+  .second {
+    padding: 2em 2em;
+  }
+  hr {
+    margin: 10px 0;
+  }
+}
+@media (max-width: $breakpoint-phone) {
+  .main {
+    flex-direction: column;
+    height: min-content;
+  }
+  .first {
+    width: 100%;
+  }
+  .second {
+    width: 100%;
+  }
 }

@@ -19,7 +19,6 @@ function ProjectCard({ id, onClick, active, name, result, index }) {
   };
 
   const countProjectLeft = () => {
-    console.log('hehe', _index);
     const numberOfDisplayedProject = 5;
     const projectLeft = result.length - numberOfDisplayedProject;
     return projectLeft;

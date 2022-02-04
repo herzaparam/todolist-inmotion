@@ -4,12 +4,35 @@ import ProjectCard from './components/ProjectCard';
 import Input from './components/Input';
 import CardList from './components/CardList';
 
-
 function App() {
-  const [listTask, setListTask] = useState([]);
+  const [listTask, setListTask] = useState({});
+  console.log('haha', listTask);
   const [listProject, setListProject] = useState({});
   const [projectCardActive, setProjectCardActive] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [taskInput, setTaskInput] = useState('');
+
+  const openModal = () => setIsOpen(!modalIsOpen);
+
+  const handleSave = () => {
+    const upComingArr = listTask.upcoming;
+    const newID = upComingArr.at(-1).id + 1;
+    const newObj = {
+      id: newID,
+      checked: false,
+      status: 'waiting',
+      title: taskInput,
+    };
+    const newUpcomingArr = upComingArr.push(newObj);
+    setListTask({
+      ...listTask,
+      upcoming: upComingArr,
+    });
+    openModal();
+  };
+
   // console.log('hehe', listProject);
   // console.log('hehe2', projectCardActive);
 
@@ -28,22 +51,30 @@ function App() {
       });
   };
 
+  const handleCheckBox = (_id, _act) => {
+    const newList = listTask[_act];
+    const newCheck = newList[_id].checked;
+    const newId = _id + 1;
+    setListTask({
+      ...listTask,
+      [_act]: listTask[_act]?.map((e) => {
+        if (e.id === newId) {
+          return {
+            id: e.id,
+            checked: !newCheck,
+            status: e.status,
+            title: e.title,
+          };
+        }
+        return e;
+      }),
+    });
+  };
+
   const handleClickProject = (_id) => {
     setProjectCardActive(_id);
     fetchTask(_id);
   };
-
-  // const countNewResult = (text) => {
-  //   const newArr = listProject.results;
-  //   const newList = newArr.filter((item) => {
-  //     if (searchTerm === '') {
-  //       return item;
-  //     } else if (val.name.toLowerCase().includes(text.toLowerCase())) {
-  //       return item;
-  //     }
-  //   });
-  //   console.log('haha', newList);
-  // };
 
   useEffect(() => {
     fetchProject();
@@ -71,11 +102,11 @@ function App() {
           <div className="grid-card">
             {listProject.results
               ?.filter((val) => {
-                if (searchTerm === '') {                  
+                if (searchTerm === '') {
                   return val;
                 } else if (
                   val.name.toLowerCase().includes(searchTerm.toLowerCase())
-                ) {    
+                ) {
                   return val;
                 }
               })
@@ -104,7 +135,9 @@ function App() {
 
       {/* section 2 is on the right side */}
       <section className="second">
-        <button className="add-btn">+</button>
+        <button className="add-btn" onClick={openModal}>
+          +
+        </button>
         {projectCardActive ? (
           <>
             <div className="title-group">
@@ -132,6 +165,8 @@ function App() {
                       checked={item.checked}
                       status={item.status}
                       key={item.id}
+                      onClick={handleCheckBox}
+                      act="today_task"
                     />
                   );
                 })}
@@ -144,14 +179,16 @@ function App() {
               </div>
               <hr />
               <div className="card-group">
-                {listTask.upcoming?.map((item) => {
+                {listTask.upcoming?.map((e) => {
                   return (
                     <CardList
-                      id={item.id}
-                      title={item.title}
-                      checked={item.checked}
-                      status={item.status}
-                      key={item.id}
+                      id={e.id}
+                      title={e.title}
+                      checked={e.checked}
+                      status={e.status}
+                      key={e.id}
+                      onClick={handleCheckBox}
+                      act="upcoming"
                     />
                   );
                 })}
@@ -165,6 +202,24 @@ function App() {
           </div>
         )}
       </section>
+      <div id="myModal" className={`modal ${modalIsOpen && 'block'}`}>
+        <div className="modal-content">
+          <div className="modal-content-title">
+            <h2>Add Tasks</h2>
+            <span className="close" onClick={() => openModal(!modalIsOpen)}>
+              &times;
+            </span>
+          </div>
+          <div className="modal-form">
+            <input
+              type="text"
+              placeholder="Type new task's here.."
+              onChange={(e) => setTaskInput(e.target.value)}
+            />
+            <button onClick={handleSave}>Save</button>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
