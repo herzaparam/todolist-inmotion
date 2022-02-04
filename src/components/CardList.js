@@ -11,7 +11,7 @@ function CardList({ id, title, checked, status }) {
     <div className="card">
       <div className="check-input">
         <input type="checkbox" id={id} />
-        <label for={id} />
+        <label htmlFor={id} />
       </div>
       <p className="card-title">{title}</p>
       <div className="card-right">

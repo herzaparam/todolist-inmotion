@@ -1,14 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/ProjectCard.scss';
+import img1 from '../assets/circle-scatter-haikei (1).svg';
+import img2 from '../assets/circle-scatter-haikei.svg';
+import img3 from '../assets/polygon-scatter-haikei (1).svg';
+import img4 from '../assets/polygon-scatter-haikei.svg';
+import img5 from '../assets/stacked-waves-haikei.svg';
 
-function ProjectCard() {
-  return (
-    <div className="card">
-      <div className="content">
-        <h4>GH</h4>
+const listImg = [img1, img2, img3, img4, img5];
+
+function ProjectCard({ id, onClick, active }) {
+  if (id) {
+    return (
+      <div className={`card ${id === active && 'active'}`} onClick={onClick}>
+        <div
+          className="content"
+          style={{
+            backgroundImage: `url(${listImg[id - 1]})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+          }}
+        >
+          <h4>GH</h4>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="card">
+        <div className="content">
+          <h4>GH</h4>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default ProjectCard;

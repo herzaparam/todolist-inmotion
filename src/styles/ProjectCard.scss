@@ -4,9 +4,13 @@
   .card {
     width: 90px;
     height: 90px;
-    border: 1px solid main.$aqua;
     border-radius: 14px;
     padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid main.$aqua;
+    }
 
     .content {
       background-color: white;
@@ -16,6 +20,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      
     }
+  }
+  .active {
+    border: 1px solid main.$aqua;
   }
 }

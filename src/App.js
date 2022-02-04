@@ -6,13 +6,15 @@ import CardList from './components/CardList';
 
 function App() {
   const [listTask, setListTask] = useState([]);
-  const [listProject, setListProject] = useState([]);
+  const [listProject, setListProject] = useState(null);
+  console.log('hehe', listProject);
+  const [projectCardActive, setProjectCardActive] = useState(null);
 
   const fetchProject = () => {
     fetch('http://demo3821799.mockable.io/get-project')
       .then((response) => response.json())
       .then((json) => {
-        setListProject(json.results);
+        setListProject(json);
       });
   };
   const fetchTask = (_id) => {
@@ -23,9 +25,13 @@ function App() {
       });
   };
 
+  const handleClickProject = (_id) => {
+    setProjectCardActive(_id);
+    fetchTask(_id);
+  };
+
   useEffect(() => {
     fetchProject();
-    fetchTask(1);
   }, []);
 
   return (
@@ -39,13 +45,20 @@ function App() {
 
         <div className="group-project">
           <h3>
-            Projects <span className="project-counter">(13)</span>
+            Projects <span className="project-counter">{`(${listProject.total})` ?? '0'}</span>
           </h3>
           <div className="grid-card">
-            {listProject.slice(0, 5)?.map((item) => {
-              return <ProjectCard item={item.id} />;
+            {listProject.results?.slice(0, 5)?.map((item) => {
+              return (
+                <ProjectCard
+                  id={item.id}
+                  onClick={() => handleClickProject(item.id)}
+                  key={item.id}
+                  active={projectCardActive}
+                />
+              );
             })}
-            <ProjectCard />
+            <ProjectCard active={projectCardActive} />
           </div>
         </div>
       </section>
