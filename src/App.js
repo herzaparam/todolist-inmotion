@@ -6,7 +6,6 @@ import CardList from './components/CardList';
 
 function App() {
   const [listTask, setListTask] = useState({});
-  console.log('haha', listTask);
   const [listProject, setListProject] = useState({});
   const [projectCardActive, setProjectCardActive] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
