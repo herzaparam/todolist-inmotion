@@ -36,14 +36,14 @@ function App() {
   // console.log('hehe2', projectCardActive);
 
   const fetchProject = () => {
-    fetch('http://demo3821799.mockable.io/get-project')
+    fetch('https://demo3821799.mockable.io/get-project')
       .then((response) => response.json())
       .then((json) => {
         setListProject(json);
       });
   };
   const fetchTask = (_id) => {
-    fetch('http://demo3821799.mockable.io/get-task')
+    fetch('https://demo3821799.mockable.io/get-task')
       .then((response) => response.json())
       .then((json) => {
         setListTask(json.result[_id]);
